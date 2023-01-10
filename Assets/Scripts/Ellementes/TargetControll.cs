@@ -13,14 +13,11 @@ public class TargetControll : MonoBehaviour
         {
             Destroy(otherTarget);
         }
-
-        timer = Time.time + 1;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter(Collider other)
     {
-        if (timer < Time.time)
+        if (other.CompareTag("Player"))
         {
             Destroy(gameObject);
         }
