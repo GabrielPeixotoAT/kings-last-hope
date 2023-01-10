@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class PlayerControll : MonoBehaviour
 {
     public LayerMask LayerMaskElement;
+    public GameObject targetEllement;
+
     private NavMeshAgent navMeshAgent;
 
     void Start()
@@ -23,6 +25,7 @@ public class PlayerControll : MonoBehaviour
             if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskElement))
             {
                 navMeshAgent.SetDestination(raycastHit.point);
+                Instantiate(targetEllement, raycastHit.point, new Quaternion());
             }
         }
     }
