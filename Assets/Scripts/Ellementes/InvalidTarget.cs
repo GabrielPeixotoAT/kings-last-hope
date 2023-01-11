@@ -13,5 +13,6 @@ public class InvalidTarget : MonoBehaviour
         {
             Destroy(otherTarget);
         }
+        Destroy(gameObject, 1.5f);
     }
 }
