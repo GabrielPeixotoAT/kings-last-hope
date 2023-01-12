@@ -11,11 +11,13 @@ public class PlayerControll : MonoBehaviour
 
     private NavMeshAgent navMeshAgent;
     private NavMeshPath meshPath;
+    private Animator animator;
 
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         meshPath = new NavMeshPath();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -38,6 +40,8 @@ public class PlayerControll : MonoBehaviour
                 }
             }
         }
+
+        SetAnimation();
     }
 
     bool CalculateNewPath(RaycastHit hit)
@@ -51,6 +55,18 @@ public class PlayerControll : MonoBehaviour
         else
         {
             return true;
+        }
+    }
+
+    void SetAnimation()
+    {
+        if (navMeshAgent.remainingDistance > 0.5f)
+        {
+            animator.SetBool("Walk", true);
+        }
+        else
+        {
+            animator.SetBool("Walk", false);
         }
     }
 }
