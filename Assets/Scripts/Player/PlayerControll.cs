@@ -8,7 +8,9 @@ public class PlayerControll : MonoBehaviour
     public LayerMask LayerMaskElement;
     public GameObject targetEllement;
     public GameObject invalidTargetEllement;
+    public AudioClip footStepsAudioClip;
 
+    private AudioSource audioSource;
     private NavMeshAgent navMeshAgent;
     private NavMeshPath meshPath;
     private Animator animator;
@@ -18,6 +20,7 @@ public class PlayerControll : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         meshPath = new NavMeshPath();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -42,6 +45,11 @@ public class PlayerControll : MonoBehaviour
         }
 
         SetAnimation();
+    }
+
+    public void FootStepSound()
+    {
+        audioSource.PlayOneShot(footStepsAudioClip);
     }
 
     bool CalculateNewPath(RaycastHit hit)
