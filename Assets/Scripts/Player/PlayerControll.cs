@@ -5,10 +5,15 @@ using UnityEngine.AI;
 
 public class PlayerControll : MonoBehaviour
 {
-    public LayerMask LayerMaskElement;
+
+    [Header("Movement")]
+    public LayerMask LayerMaskMovement;
     public GameObject targetEllement;
     public GameObject invalidTargetEllement;
     public AudioClip footStepsAudioClip;
+
+    [Header("Interact")]
+    public LayerMask LayerMaskIntect;
 
     private AudioSource audioSource;
     private NavMeshAgent navMeshAgent;
@@ -29,8 +34,11 @@ public class PlayerControll : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycastHit;
-
-            if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskElement))
+            if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskIntect))
+            {
+                navMeshAgent.SetDestination(raycastHit.point + new Vector3(-1f, 0, 0));
+            }
+            else if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskMovement))
             {
                 if (CalculateNewPath(raycastHit))
                 {
