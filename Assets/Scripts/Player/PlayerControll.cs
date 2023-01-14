@@ -27,6 +27,7 @@ public class PlayerControll : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private NavMeshPath meshPath;
     private Animator animator;
+    private GameObject lastTargetEllement;
 
     void Start()
     {
@@ -57,12 +58,18 @@ public class PlayerControll : MonoBehaviour
 
             if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskEnemys))
             {
+                if (lastTargetEllement != null)
+                    Destroy(lastTargetEllement);
+
                 goToAttack = true;
                 enemyTarget = raycastHit.transform.gameObject;
                 navMeshAgent.SetDestination(raycastHit.collider.transform.position);
             }
             else if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskIntect))
             {
+                if (lastTargetEllement != null)
+                    Destroy(lastTargetEllement);
+
                 navMeshAgent.SetDestination(raycastHit.collider.transform.position + new Vector3(-1f, 0, 0));
             }
             else if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskMovement))
@@ -70,11 +77,11 @@ public class PlayerControll : MonoBehaviour
                 if (CalculateNewPath(raycastHit))
                 {
                     navMeshAgent.SetDestination(raycastHit.point);
-                    Instantiate(targetEllement, raycastHit.point, targetEllement.transform.rotation);
+                    lastTargetEllement = Instantiate(targetEllement, raycastHit.point, targetEllement.transform.rotation);
                 }
                 else
                 {
-                    Instantiate(invalidTargetEllement, raycastHit.point, invalidTargetEllement.transform.rotation);
+                    lastTargetEllement = Instantiate(invalidTargetEllement, raycastHit.point, invalidTargetEllement.transform.rotation);
                 }
             }
         }
