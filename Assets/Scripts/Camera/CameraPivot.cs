@@ -13,12 +13,12 @@ public class CameraPivot : MonoBehaviour
     public float actualZoom;
 
     private Transform playerTransform;
-    private Camera camera;
+    private Camera mainCamera;
 
     void Start()
     {
         playerTransform = GameObject.FindWithTag("Player").transform;
-        camera = Camera.main;
+        mainCamera = Camera.main;
     }
 
     void Update()
@@ -38,7 +38,7 @@ public class CameraPivot : MonoBehaviour
             if (MaxZoom >= actualZoom)
             {
                 actualZoom += ZoomSemsibility;
-                camera.transform.Translate(new Vector3(0, 0, 1));
+                mainCamera.transform.Translate(new Vector3(0, 0, 1));
             }
         }
         if (Input.mouseScrollDelta == Vector2.down)
@@ -46,7 +46,7 @@ public class CameraPivot : MonoBehaviour
             if (MinZoom <= actualZoom)
             {
                 actualZoom -= ZoomSemsibility;
-                camera.transform.Translate(new Vector3(0, 0, -1));
+                mainCamera.transform.Translate(new Vector3(0, 0, -1));
             }
         }
     }
