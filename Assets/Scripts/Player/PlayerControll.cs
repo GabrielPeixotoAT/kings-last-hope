@@ -20,6 +20,7 @@ public class PlayerControll : MonoBehaviour
     [Header("Combat")]
     public LayerMask LayerMaskEnemys;
 
+    private GameObject enemyTarget;
     private bool goToAttack;
 
     private AudioSource audioSource;
@@ -37,6 +38,18 @@ public class PlayerControll : MonoBehaviour
 
     void Update()
     {
+        Movement();
+
+        SetAnimation();
+    }
+
+    public void FootStepSound()
+    {
+        audioSource.PlayOneShot(footStepsAudioClip);
+    }
+
+    void Movement()
+    {
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -44,11 +57,13 @@ public class PlayerControll : MonoBehaviour
 
             if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskEnemys))
             {
-                navMeshAgent.SetDestination(raycastHit.point + new Vector3(-1f, 0, 0));
+                goToAttack = true;
+                enemyTarget = raycastHit.transform.gameObject;
+                navMeshAgent.SetDestination(raycastHit.collider.transform.position);
             }
             else if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskIntect))
             {
-                navMeshAgent.SetDestination(raycastHit.point + new Vector3(-1f, 0, 0));
+                navMeshAgent.SetDestination(raycastHit.collider.transform.position + new Vector3(-1f, 0, 0));
             }
             else if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskMovement))
             {
@@ -58,18 +73,11 @@ public class PlayerControll : MonoBehaviour
                     Instantiate(targetEllement, raycastHit.point, targetEllement.transform.rotation);
                 }
                 else
-                {   
+                {
                     Instantiate(invalidTargetEllement, raycastHit.point, invalidTargetEllement.transform.rotation);
                 }
             }
         }
-
-        SetAnimation();
-    }
-
-    public void FootStepSound()
-    {
-        audioSource.PlayOneShot(footStepsAudioClip);
     }
 
     bool CalculateNewPath(RaycastHit hit)
