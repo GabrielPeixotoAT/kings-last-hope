@@ -51,7 +51,33 @@ public class PlayerControll : MonoBehaviour
 
     public void CombatAction(Collider collider)
     {
+        navMeshAgent.SetDestination(gameObject.transform.position);
+
+        goToAttack = true;
+
+        Attack();
+    }
+
+    public void DeliveryDamage()
+    {
         
+    }
+
+    void Attack()
+    {
+        if (goToAttack)
+        {
+            if (!animator.GetBool("Attack"))
+                animator.SetBool("Attack", true);
+
+            if (enemyTarget == null)
+                goToAttack = false;
+        }
+        else
+        {
+            if (animator.GetBool("Attack"))
+                animator.SetBool("Attack", false);
+        }
     }
 
     void Movement()
@@ -66,12 +92,15 @@ public class PlayerControll : MonoBehaviour
                 if (lastTargetEllement != null)
                     Destroy(lastTargetEllement);
 
-                goToAttack = true;
                 enemyTarget = raycastHit.transform.gameObject;
                 navMeshAgent.SetDestination(raycastHit.collider.transform.position);
             }
             else if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskIntect))
             {
+                goToAttack = false;
+                Attack();
+                enemyTarget = null;
+
                 if (lastTargetEllement != null)
                     Destroy(lastTargetEllement);
 
@@ -79,6 +108,10 @@ public class PlayerControll : MonoBehaviour
             }
             else if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskMovement))
             {
+                goToAttack = false;
+                Attack();
+                enemyTarget = null;
+
                 if (CalculateNewPath(raycastHit))
                 {
                     navMeshAgent.SetDestination(raycastHit.point);
