@@ -19,8 +19,8 @@ public class PlayerControll : MonoBehaviour
 
     [Header("Combat")]
     public LayerMask LayerMaskEnemys;
+    public GameObject enemyTarget;
 
-    private GameObject enemyTarget;
     private bool goToAttack;
 
     private AudioSource audioSource;
@@ -47,6 +47,11 @@ public class PlayerControll : MonoBehaviour
     public void FootStepSound()
     {
         audioSource.PlayOneShot(footStepsAudioClip);
+    }
+
+    public void CombatAction(Collider collider)
+    {
+        
     }
 
     void Movement()
@@ -90,26 +95,21 @@ public class PlayerControll : MonoBehaviour
     bool CalculateNewPath(RaycastHit hit)
     {
         navMeshAgent.CalculatePath(hit.point, meshPath);
-        print("New path calculated");
-        if (meshPath.status != NavMeshPathStatus.PathComplete)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return (meshPath.status != NavMeshPathStatus.PathComplete) ?
+            false : true;
     }
 
     void SetAnimation()
     {
         if (navMeshAgent.remainingDistance > 0.5f)
         {
-            animator.SetBool("Walk", true);
+            if (!animator.GetBool("Walk")) // realizar testes de performace
+                animator.SetBool("Walk", true);
         }
         else
         {
-            animator.SetBool("Walk", false);
+            if (animator.GetBool("Walk"))
+                animator.SetBool("Walk", false);
         }
     }
 }
