@@ -15,6 +15,13 @@ public class PlayerControll : MonoBehaviour
     [Header("Interact")]
     public LayerMask LayerMaskIntect;
 
+    private bool goToInteract;
+
+    [Header("Combat")]
+    public LayerMask LayerMaskEnemys;
+
+    private bool goToAttack;
+
     private AudioSource audioSource;
     private NavMeshAgent navMeshAgent;
     private NavMeshPath meshPath;
@@ -34,7 +41,12 @@ public class PlayerControll : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycastHit;
-            if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskIntect))
+
+            if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskEnemys))
+            {
+                navMeshAgent.SetDestination(raycastHit.point + new Vector3(-1f, 0, 0));
+            }
+            else if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskIntect))
             {
                 navMeshAgent.SetDestination(raycastHit.point + new Vector3(-1f, 0, 0));
             }
