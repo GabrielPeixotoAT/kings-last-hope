@@ -60,7 +60,9 @@ public class PlayerControll : MonoBehaviour
 
     public void DeliveryDamage()
     {
-        
+        GameObject player = GameObject.FindWithTag("Player");
+
+        player.GetComponent<PlayerControll>().enemyTarget.GetComponent<EnemyStatus>().TakeDamage(player.GetComponent<PlayerStatus>().Damage);
     }
 
     void Attack()

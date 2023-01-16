@@ -11,14 +11,6 @@ public class CombatControll : MonoBehaviour
         playerControll = GameObject.FindWithTag("Player").GetComponent<PlayerControll>();
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject == playerControll.enemyTarget)
-        {
-            playerControll.CombatAction(other);
-        }
-    }
-
     void OnTriggerStay(Collider other)
     {
         if (other.gameObject == playerControll.enemyTarget)

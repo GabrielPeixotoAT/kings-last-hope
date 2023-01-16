@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerStatus : MonoBehaviour
+public class LifeStatus : MonoBehaviour, IKillable
 {
     [Header("Life Status")]
     public float Life;
     public float MaxLife;
     public Slider sliderLife;
+
 
     void Start()
     {
@@ -16,14 +17,13 @@ public class PlayerStatus : MonoBehaviour
         sliderLife.value = Life;
     }
 
-    void Update()
-    {
-        
-    }
-
     public void TakeDamage(float damage)
     {
         Life -= damage;
+
+        if (Life < 0)
+            Life = 0;
+
         sliderLife.value = Life;
     }
 }
