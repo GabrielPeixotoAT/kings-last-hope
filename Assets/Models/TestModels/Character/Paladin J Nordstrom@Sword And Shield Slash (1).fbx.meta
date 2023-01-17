@@ -65,6 +65,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 1
+        functionName: StopAttack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 353ceb6163d53dd47b5a9c1dae2bdb4e,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

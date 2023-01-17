@@ -21,9 +21,17 @@ public class LifeStatus : MonoBehaviour, IKillable
     {
         Life -= damage;
 
-        if (Life < 0)
+        if (Life <= 0)
+        {
             Life = 0;
+            Die();
+        }
 
         sliderLife.value = Life;
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }

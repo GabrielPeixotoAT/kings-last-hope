@@ -61,8 +61,26 @@ public class PlayerControll : MonoBehaviour
     public void DeliveryDamage()
     {
         GameObject player = GameObject.FindWithTag("Player");
+        GameObject enemy = player.GetComponent<PlayerControll>().enemyTarget;
 
-        player.GetComponent<PlayerControll>().enemyTarget.GetComponent<EnemyStatus>().TakeDamage(player.GetComponent<PlayerStatus>().Damage);
+        if (enemy != null)
+            enemy.GetComponent<EnemyStatus>().TakeDamage(player.GetComponent<PlayerStatus>().Damage);
+        else
+            player.GetComponent<PlayerControll>().animator.SetBool("Attack", false);
+    }
+
+    bool CheckIfEnemyIsLife()
+    {
+        return (this.enemyTarget == null) ?
+            false : true;
+    }
+
+    void StopAttack()
+    {
+        PlayerControll player = GameObject.FindWithTag("Player").GetComponent<PlayerControll>();
+
+        if (!player.CheckIfEnemyIsLife())
+            player.animator.SetBool("Attack", false);
     }
 
     void Attack()
