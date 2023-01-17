@@ -53,6 +53,8 @@ public class PlayerControll : MonoBehaviour
     {
         navMeshAgent.SetDestination(gameObject.transform.position);
 
+        TurnToEnemy(collider);
+
         goToAttack = true;
 
         Attack();
@@ -67,6 +69,13 @@ public class PlayerControll : MonoBehaviour
             enemy.GetComponent<EnemyStatus>().TakeDamage(player.GetComponent<PlayerStatus>().Damage);
         else
             player.GetComponent<PlayerControll>().animator.SetBool("Attack", false);
+    }
+
+    void TurnToEnemy(Collider collider)
+    {
+        var targetRotation = Quaternion.LookRotation(collider.transform.position - transform.position);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10 * Time.deltaTime);
     }
 
     bool CheckIfEnemyIsLife()
