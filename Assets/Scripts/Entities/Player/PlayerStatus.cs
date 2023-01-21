@@ -6,11 +6,22 @@ using Entities.BaseClasses;
 
 namespace Entities.Player
 {
-    public class PlayerStatus : LifeStatus
+    public class PlayerStatus : MonoBehaviour
     {
+        public GameObject StatusObject;
+
         [Header("Combat Status")]
-        public float Damage;        
-        
+        public float Damage;
+
+
+        LifeStatus lifeStatus;
+        ManaStatus manaStatus;
+
+        void Start()
+        {
+            lifeStatus = StatusObject.GetComponent<LifeStatus>();
+            manaStatus = StatusObject.GetComponent<ManaStatus>();
+        }
     }
 }
 
