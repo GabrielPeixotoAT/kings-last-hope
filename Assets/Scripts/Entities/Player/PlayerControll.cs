@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Entities.Enemy;
+using Menus.InGame;
 
 namespace Entities.Player
 {
@@ -17,6 +18,8 @@ namespace Entities.Player
 
         [Header("Interact")]
         public LayerMask LayerMaskIntect;
+        public GameObject intetactTarget;
+        public bool InInteraction;
 
         private bool goToInteract;
 
@@ -61,6 +64,22 @@ namespace Entities.Player
             goToAttack = true;
 
             Attack();
+        }
+
+        public void InteractAction()
+        {
+            if (goToInteract)
+            {
+                intetactTarget.GetComponent<IInteractMenu>().ActiveMenu(true);
+                StopPlayer();
+                InInteraction = true;
+                goToInteract = false;
+            }
+        }
+
+        public void StopPlayer()
+        {
+            navMeshAgent.SetDestination(gameObject.transform.position);
         }
 
         public void DeliveryDamage()
@@ -112,46 +131,53 @@ namespace Entities.Player
             }
         }
 
+        
         void Movement()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (!InInteraction)
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit raycastHit;
-
-                if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskEnemys))
+                if (Input.GetMouseButtonDown(0))
                 {
-                    if (lastTargetEllement != null)
-                        Destroy(lastTargetEllement);
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit raycastHit;
 
-                    enemyTarget = raycastHit.transform.gameObject;
-                    navMeshAgent.SetDestination(raycastHit.collider.transform.position);
-                }
-                else if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskIntect))
-                {
-                    goToAttack = false;
-                    Attack();
-                    enemyTarget = null;
-
-                    if (lastTargetEllement != null)
-                        Destroy(lastTargetEllement);
-
-                    navMeshAgent.SetDestination(raycastHit.collider.transform.position + new Vector3(-1f, 0, 0));
-                }
-                else if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskMovement))
-                {
-                    goToAttack = false;
-                    Attack();
-                    enemyTarget = null;
-
-                    if (CalculateNewPath(raycastHit))
+                    if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskEnemys))
                     {
-                        navMeshAgent.SetDestination(raycastHit.point);
-                        lastTargetEllement = Instantiate(targetEllement, raycastHit.point, targetEllement.transform.rotation);
+                        if (lastTargetEllement != null)
+                            Destroy(lastTargetEllement);
+
+                        enemyTarget = raycastHit.transform.gameObject;
+                        navMeshAgent.SetDestination(raycastHit.collider.transform.position);
                     }
-                    else
+                    else if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskIntect))
                     {
-                        lastTargetEllement = Instantiate(invalidTargetEllement, raycastHit.point, invalidTargetEllement.transform.rotation);
+                        goToInteract = true;
+                        goToAttack = false;
+                        Attack();
+                        enemyTarget = null;
+
+                        intetactTarget = raycastHit.transform.gameObject;
+
+                        if (lastTargetEllement != null)
+                            Destroy(lastTargetEllement);
+
+                        navMeshAgent.SetDestination(raycastHit.collider.transform.position);
+                    }
+                    else if (Physics.Raycast(ray, out raycastHit, 100, LayerMaskMovement))
+                    {
+                        goToAttack = false;
+                        Attack();
+                        enemyTarget = null;
+
+                        if (CalculateNewPath(raycastHit))
+                        {
+                            navMeshAgent.SetDestination(raycastHit.point);
+                            lastTargetEllement = Instantiate(targetEllement, raycastHit.point, targetEllement.transform.rotation);
+                        }
+                        else
+                        {
+                            lastTargetEllement = Instantiate(invalidTargetEllement, raycastHit.point, invalidTargetEllement.transform.rotation);
+                        }
                     }
                 }
             }

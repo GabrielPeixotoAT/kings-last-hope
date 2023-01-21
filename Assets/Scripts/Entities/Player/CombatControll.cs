@@ -13,6 +13,14 @@ namespace Entities.Player
             playerControll = GameObject.FindWithTag("Player").GetComponent<PlayerControll>();
         }
 
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject == playerControll.intetactTarget)
+            {
+                playerControll.InteractAction();
+            }
+        }
+
         void OnTriggerStay(Collider other)
         {
             if (other.gameObject == playerControll.enemyTarget)
