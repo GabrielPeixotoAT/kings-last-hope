@@ -4729,9 +4729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 638ff1786c9c38141a003cb271794f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Life: 100
-  MaxLife: 100
-  sliderLife: {fileID: 869211022}
+  HealthBar: {fileID: 869211022}
   Damage: 10
 --- !u!4 &5901452234923348161
 Transform:

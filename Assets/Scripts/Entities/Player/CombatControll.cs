@@ -2,20 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatControll : MonoBehaviour
+namespace Entities.Player
 {
-    private PlayerControll playerControll;
-
-    void Start()
+    public class CombatControll : MonoBehaviour
     {
-        playerControll = GameObject.FindWithTag("Player").GetComponent<PlayerControll>();
-    }
+        private PlayerControll playerControll;
 
-    void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject == playerControll.enemyTarget)
+        void Start()
         {
-            playerControll.CombatAction(other);
+            playerControll = GameObject.FindWithTag("Player").GetComponent<PlayerControll>();
+        }
+
+        void OnTriggerStay(Collider other)
+        {
+            if (other.gameObject == playerControll.enemyTarget)
+            {
+                playerControll.CombatAction(other);
+            }
         }
     }
 }
+

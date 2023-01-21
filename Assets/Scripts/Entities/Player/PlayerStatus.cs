@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Entities.BaseClasses;
 
-public class PlayerStatus : LifeStatus
+namespace Entities.Player
 {
-    [Header("Combat Status")]
-    public float Damage;
-
-
-    void Update()
+    public class PlayerStatus : LifeStatus
     {
+        [Header("Combat Status")]
+        public float Damage;        
         
     }
 }
+

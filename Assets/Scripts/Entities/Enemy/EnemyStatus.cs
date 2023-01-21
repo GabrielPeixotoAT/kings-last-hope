@@ -2,8 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Entities.BaseClasses;
 
-public class EnemyStatus : LifeStatus
+namespace Entities.Enemy
 {
+    public class EnemyStatus : LifeStatus
+    {
 
+    }
 }
+
