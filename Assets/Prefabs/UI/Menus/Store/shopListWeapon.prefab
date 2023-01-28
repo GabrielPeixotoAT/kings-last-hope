@@ -359,8 +359,9 @@ GameObject:
   - component: {fileID: 8994517525144311763}
   - component: {fileID: 8994517525144311789}
   - component: {fileID: 8994517525144311762}
+  - component: {fileID: 61516293963711791}
   m_Layer: 7
-  m_Name: shopListIten
+  m_Name: shopListWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -428,6 +429,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &61516293963711791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8994517525144311760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c6b84a38bd07f48bd3eec815b9787e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItenName: iten name
+  Price: 0
+  Weight: 0
+  TitleText: {fileID: 8994517525506470346}
+  AttrText: {fileID: 8994517524799067510}
+  PriceText: {fileID: 8994517524544701952}
+  Damage: 0
+  Range: 0
+  Speed: 0
 --- !u!1 &8994517525506470344
 GameObject:
   m_ObjectHideFlags: 0
