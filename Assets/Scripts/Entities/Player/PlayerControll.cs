@@ -172,7 +172,9 @@ namespace Entities.Player
                         if (CalculateNewPath(raycastHit))
                         {
                             navMeshAgent.SetDestination(raycastHit.point);
-                            lastTargetEllement = Instantiate(targetEllement, raycastHit.point, targetEllement.transform.rotation);
+
+                            if (navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
+                                lastTargetEllement = Instantiate(targetEllement, raycastHit.point, targetEllement.transform.rotation);
                         }
                         else
                         {
@@ -192,7 +194,7 @@ namespace Entities.Player
 
         void SetAnimation()
         {
-            if (navMeshAgent.remainingDistance > 0.5f)
+            if (navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
             {
                 if (!animator.GetBool("Walk")) // realizar testes de performace
                     animator.SetBool("Walk", true);

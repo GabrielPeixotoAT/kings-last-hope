@@ -3861,6 +3861,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 61516293963711791, guid: 1758a19d19575de40bd76a5be0047172,
         type: 3}
+      propertyPath: ItenIcon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 61516293963711791, guid: 1758a19d19575de40bd76a5be0047172,
+        type: 3}
       propertyPath: ItenName
       value: Imperial War Axe
       objectReference: {fileID: 0}
@@ -8303,7 +8308,7 @@ NavMeshAgent:
   m_Acceleration: 1000
   avoidancePriority: 50
   m_AngularSpeed: 10000
-  m_StoppingDistance: 1
+  m_StoppingDistance: 0.3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
