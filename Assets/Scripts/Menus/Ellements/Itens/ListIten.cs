@@ -25,7 +25,7 @@ namespace Menus.Ellements.Itens
             SetInUIValues();
         }
 
-        void SetInUIValues()
+        public void SetInUIValues()
         {
             SetMainValues();
             SetAttrValues();
@@ -35,7 +35,7 @@ namespace Menus.Ellements.Itens
         {
             TitleText.text = ItenName;
             PriceText.text = Price.ToString();
-            IconImage.sprite = ItenIcon;
+            //IconImage.sprite = ItenIcon;
         }
 
         protected virtual void SetAttrValues()
